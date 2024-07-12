@@ -133,3 +133,10 @@ class LayoutEditView(LoginRequiredMixin, View):
             form.save()
             return redirect(reverse_lazy('layouts'))
         return render(request, 'layouts/edit.html', {'form': form, 'backgrounds': backgrounds, 'frames': frames, 'layout': layout, 'position_list': POSITION_LIST})
+    
+class LayoutDeleteView(LoginRequiredMixin, View):
+    
+    def get(self, request, pk):
+        layout = Layout.objects.get(id=pk)
+        layout.delete()
+        return redirect(reverse_lazy('layouts'))    

@@ -263,3 +263,10 @@ class FrameEditView(LoginRequiredMixin, View):
             form.save()
             return redirect("frames")
         return render(request, "frames/edit.html", {"form": form, "frame": frame, "devices": devices, "positions": POSITION_FRAMES})
+    
+class FrameDeleteView(LoginRequiredMixin, View):
+    
+    def get(self, request, pk, *args, **kwargs):
+        frame = Frame.objects.get(id=pk)
+        frame.delete()
+        return redirect("frames")        
