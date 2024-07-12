@@ -89,3 +89,10 @@ class BackgroundEditView(LoginRequiredMixin, View):
         else:
             messages.error(request, form.errors)
         return render(request, 'backgrounds/edit.html', {'form': form, 'background': background, 'positions': BACKGROUND_POSITIONS})    
+
+class BackgroundDeleteView(LoginRequiredMixin, View):
+
+    def get(self, request, pk):
+        background = Background.objects.get(id=pk)
+        background.delete()
+        return redirect('backgrounds')    
